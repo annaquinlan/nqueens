@@ -79,10 +79,10 @@ def backtrack(assignment, possible, n, board):
     print assignment
     if len(assignment) == n:
         return assignment
-    print "Options are"
+#     print "Options are"
     currentoptions = possible[-1]
-    print possible
-    print currentoptions
+#     print possible
+#     print currentoptions
     print "---"
     # get variable to assign
     for loc in currentoptions:
@@ -94,6 +94,7 @@ def backtrack(assignment, possible, n, board):
         restricted = inference(board, loc, n, currentoptions)
         # if inference  not a failure
         if len(restricted) >= (n - len(assignment)):
+            print "inference not a failure"
             possible.append(restricted)
             result = backtrack(assignment, possible, n, board)
             print "this is result"
@@ -104,7 +105,7 @@ def backtrack(assignment, possible, n, board):
         # remove {var = value} and inferences from assignment
         print "BACKTRACK!!"
         assignment.pop()
-        possible.pop()
+#       possible.pop()
     return False
 ## problem = it's not "popping" up far enough
     
@@ -119,4 +120,4 @@ def inference(board, i, n, possible):
     updated = possibleset.difference(rows).difference(cols).difference(ldiags).difference(rdiags)
     return list(updated)
 
-nqueens(4)
+nqueens(8)
