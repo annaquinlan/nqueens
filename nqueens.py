@@ -12,12 +12,9 @@ def nqueens(n):
     for i in range(0, n):
         board.append(range(j, j + n))
         j += n
-    printboard(board, n)
-    print
     assignment = []
     possible = [range(0, n*n)]
-    print "placing queens"
-    print backtrack(assignment, possible, n, board)
+    return backtrack(assignment, possible, n, board)
 
 # with '0' as [0,0]
 def getindex(i, n):
@@ -75,18 +72,14 @@ def printboard(board, n):
         print board[i]
         
 def backtrack(assignment, possible, n, board):
-    print "---Starting iteration of backtrack"
-    print assignment
     if len(assignment) == n:
         return assignment
 #     print "Options are"
     currentoptions = possible[-1]
 #     print possible
 #     print currentoptions
-    print "---"
     # get variable to assign
     for loc in currentoptions:
-        print "considering location " + str(loc)
         # if value is consistent with assignment
             # add {var = value} to assignment
         assignment.append(loc)
@@ -94,24 +87,16 @@ def backtrack(assignment, possible, n, board):
         restricted = inference(board, loc, n, currentoptions)
         # if inference  not a failure
         if len(restricted) >= (n - len(assignment)):
-            print "inference not a failure"
             possible.append(restricted)
             result = backtrack(assignment, possible, n, board)
-            print "this is result"
-            print result
             if result:
-                print "in if"
                 return assignment
         # remove {var = value} and inferences from assignment
-        print "BACKTRACK!!"
         assignment.pop()
-#       possible.pop()
     return False
-## problem = it's not "popping" up far enough
     
 # return all locations that can still have a queen    
 def inference(board, i, n, possible):
-    print "starting inference"
     possibleset = sets.Set(possible)
     rows = sets.Set(getrow(board, i, n))
     cols = sets.Set(getcol(board, i, n))
